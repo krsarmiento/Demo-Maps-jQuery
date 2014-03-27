@@ -25,6 +25,7 @@
 	<script src="js/jquery.mobile-1.4.2.min.js"></script>
     
     <script>
+
         function drawMap(latlng, canvas) {
             var myOptions = {
                 zoom: 17,
@@ -45,24 +46,15 @@
             drawMap(defaultLatLng, 'map_canvas');
         }
         
-        function setMap1() {
-            lat = 10.393856;
-            long = -75.559411;
-        }
-        
-        function setMap2() {
-            lat = 10.397972;
-            long = -75.560977;
-        }
-        
-        function setMap3() {
-            lat = 10.404282;
-            long = -75.555398;
-        }
-        
-        function setMap4() {
-            lat = 10.398800;
-            long = -75.558665;
+        function requestSite(name) {
+            var url = 'http://127.0.0.1/restmaps/sites/?name='+name;
+            $.getJSON(url, {}, 
+                function(data) {
+                    console.log(data[0]);
+                    lat = data[0].lat;
+                    long = data[0].long;
+                }
+            );
         }
         
         var lat = 44.0983425;
@@ -71,7 +63,6 @@
         $( document ).on( "pageshow", "#mapZone", function() {
             redraw(lat, long);
         });
-        
 
     </script> 
     
@@ -124,13 +115,13 @@
             <input id="filter-for-listview" data-type="search" placeholder="Type to search...">
         </form>
         <ul data-role="listview" data-inset="true" data-filter="true" data-input="#filter-for-listview">
-            <li><a href="#mapZone" onclick="setMap1()">Hotel Hilton</a></li>
-            <li><a href="#mapZone" onclick="setMap2()">Hotel Caribe</a></li>
-            <li><a href="#mapZone" onclick="setMap3()">Hotel Capilla del Mar</a></li>
-            <li><a href="#mapZone" onclick="setMap4()">Restaurante Danny</a></li>
+            <li><a href="#mapZone" onclick="requestSite('gimaura')">Hotel Gimaura</a></li>
+            <li><a href="#mapZone" onclick="requestSite('arimaca')">Hotel Arimaca</a></li>
+            <li><a href="#mapZone" onclick="requestSite('tamaiti')">Hotel Tamaiti</a></li>
+            <li><a href="#mapZone" onclick="requestSite('alfhor')">Hotel Alfhor</a></li>
         </ul>
 	</div><!-- /content -->
-
+    
 	<div data-role="footer" data-theme="a" data-position="fixed">
 		<h3>Map View &copy; 2014</h3>
 	</div><!-- /footer -->
