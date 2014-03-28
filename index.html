@@ -26,6 +26,18 @@
     
     <script>
 
+        $.ajax({
+            url: "http://127.0.0.1/restmaps/sites/",
+            jsonp: "jsonp",
+            dataType: "jsonp",
+            data: {
+                name: "alfhor"
+            },
+            success: function( response ) {
+                console.log( response );
+            }
+        });
+        
         function drawMap(latlng, canvas) {
             var myOptions = {
                 zoom: 17,
@@ -47,14 +59,23 @@
         }
         
         function requestSite(name) {
+            
             var url = 'http://127.0.0.1/restmaps/sites/?name='+name;
-            $.getJSON(url, {}, 
-                function(data) {
+            
+            $.ajax({
+                url: url,
+                jsonp: "jsonp",
+                dataType: "jsonp",
+                data: {
+                    name: name
+                },
+                success: function( data ) {
                     console.log(data[0]);
                     lat = data[0].lat;
                     long = data[0].long;
                 }
-            );
+            });
+            
         }
         
         var lat = 44.0983425;
